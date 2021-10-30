@@ -11,7 +11,7 @@ See the [official API documentation](https://developers.line.biz/en/docs/line-lo
 Use the package manager [composer](https://getcomposer.org) to install package.
 
 ```bash
-composer install ejlin/line-login-sdk-php
+composer require ejlin/line-login-sdk-php
 ```
 
 ## Usage
