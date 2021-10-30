@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit colors="true" bootstrap="./tests/bootstrap.php">
+    <php>
+        <env name="LINE_LOGIN_CHANNEL_ID" value="test_client_id"/>
+        <env name="LINE_LOGIN_CHANNEL_SECRET" value="test_client_secret"/>
+    </php>
+</phpunit>
+
