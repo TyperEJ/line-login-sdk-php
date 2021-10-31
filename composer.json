@@ -40,5 +40,6 @@
                 "LINELoginHelper": "EJLin\\Laravel\\Facade\\LINELoginHelper"
             }
         }
-    }
+    },
+    "license": "MIT"
 }
