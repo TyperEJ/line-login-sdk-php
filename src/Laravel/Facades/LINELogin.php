@@ -9,8 +9,8 @@ use EJLin\LINELogin\UserProfile;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static string makeAuthorizeUrl(string $channel, string $scope, string $state, array $optionalArgs = [])
- * @method static string makePKCEAuthorizeUrl(string $channel, string $scope, string $state, string $codeChallenge, array $optionalArgs = [])
+ * @method static string makeAuthorizeUrl(string $redirectUri, string $scope, string $state, array $optionalArgs = [])
+ * @method static string makePKCEAuthorizeUrl(string $redirectUri, string $scope, string $state, string $codeChallenge, array $optionalArgs = [])
  * @method static Token requestToken(string $redirectUri, string $code, string $codeVerifier = '')
  * @method static Response verifyToken(Token $token)
  * @method static Token refreshToken(Token $token, bool $issuedThroughWebApp = true)
