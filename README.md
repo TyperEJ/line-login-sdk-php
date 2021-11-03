@@ -24,9 +24,10 @@ $httpClient = new \EJLin\LINELogin\GuzzleHTTPClient();
 // Channel Basic Information: https://developers.line.biz/console/channel/<channel id>/basics
 $LINELogin = new \EJLin\LINELogin($httpClient, ['clientId' => '<channel id>','clientSecret' => '<channel secret>']);
 
+// Step 3. After login, the LINE will redirect to the URL that you requested with state and code
 if(isset($_GET['code']) && isset($_GET['state']))
 {
-    //TODO: Check the state code same as what you requested
+    // TODO: Check the state code same as what you requested
     
     // Request access token from the LINE platform
     $token = $LINELogin->requestToken(
@@ -45,13 +46,14 @@ if(isset($_GET['code']) && isset($_GET['state']))
 // A unique alphanumeric string used to prevent cross-site request forgery
 $state = \EJLin\LINELogin\Helper::randomString(40);
 
+// Step 1. Make authorize url
 $authorizeUrl = $LINELogin->makeAuthorizeUrl(
     'https://yourdomain.com', // Callback URL: https://developers.line.biz/console/channel/<channel id>/line-login
     'profile openid email', // Permissions requested from the user: https://developers.line.biz/en/docs/line-login/integrate-line-login/#scopes
     $state
 );
 
-// Redirect to authorize url
+// Step 2. Redirect to authorize url
 header("Location: $authorizeUrl");
 exit;
 
@@ -67,16 +69,34 @@ LINE_LOGIN_CHANNEL_SECRET=<channel secret>
 then you can use `LINELogin` and `LINELoginHelper` facades like following.
 
 ```php
+// Step 3.
+if(request()->has('code') && request()->has('state'))
+{
+    $token = \EJLin\Laravel\Facades\LINELogin::requestToken(
+            url()->current(),
+            request()->input('code'),
+        );
+
+    $userProfile = \EJLin\Laravel\Facades\LINELogin::getUserProfile($token);
+
+    return "Hello {$userProfile->getDisplayName()} !";
+}
+
 $state = \EJLin\Laravel\Facades\LINELoginHelper::randomString(40);
 
-$authorizeUrl = \EJLin\Laravel\Facades\LINELogin::makeAuthorizeUrl([
-    'https://yourdomain.com',
+// Step 1.
+$authorizeUrl = \EJLin\Laravel\Facades\LINELogin::makeAuthorizeUrl(
+    url()->current(),
     'profile openid email',
     $state
-]);
+);
+
+// Step 2.
+return redirect()->away($authorizeUrl);
 ```
 
 ## Reference 
+
 - [kkdai / line-login-sdk-go](https://github.com/kkdai/line-login-sdk-go)
 
 - [line / line-bot-sdk-php](https://github.com/line/line-bot-sdk-php)
