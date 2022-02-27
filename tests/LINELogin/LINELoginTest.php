@@ -67,7 +67,7 @@ URL;
     public function testAuthorizeUrlWhenNoChannelId()
     {
         $this->expectException(AuthenticationException::class);
-        $this->expectExceptionMessageRegExp('#No client_id provided#');
+        $this->expectExceptionMessageMatches('#No client_id provided#');
 
         $lineLogin = new LINELogin(new DummyHttpClient($this, function () {
             return [];
